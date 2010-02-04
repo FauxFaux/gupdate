@@ -12,6 +12,12 @@ $gapp = $_GET{'app'};
 $gos = $_GET{'os'};
 $gsp = $_GET{'sp'};
 $dev = $_GET{'dev'};
+$beta = $_GET{'beta'};
+
+if (!$gver) {
+	if (preg_match(',Chrome/(\d+\.\d+\.\d+\.\d+),', $_SERVER['HTTP_USER_AGENT'], $args))
+		$gver = $args[1];
+}
 
 $valv = preg_match('/^\d+\.\d+\.\d+\.\d+$/', $gver);
 $valapp = isset($apps[$gapp]);
@@ -36,6 +42,7 @@ $inv='style="border: 1px solid red"';
 	<option>Service Pack 2</option>
 	<option>Service Pack 1</option>
 </select>
+<li><input type="checkbox" name="beta" <?=$beta?'checked="checked"':''?>/> Chrome 2.0-beta channel.</li>
 <li><input type="checkbox" name="dev" <?=$dev?'checked="checked"':''?>/> Chrome 2.0-dev channel.</li>
 <li><input type="submit"/></li>
 </ul>
@@ -43,7 +50,7 @@ $inv='style="border: 1px solid red"';
 <?
 if (!$val)
 	exit;
-$con='<?xml version="1.0" encoding="UTF-8"?><o:gupdate xmlns:o="http://www.google.com/update2/request" protocol="2.0" version="1.2.183.7" ismachine="0" machineid="{B08ED3F4-42C4-49be-A5E3-0000' . $iphex . '" userid="{F3627360-8932-49b0-9547-23D24D0D1739}" requestid="{5D7BF504-D356-4155-B30D-' . substr(uniqid(), -12) . '}"><o:os platform="win" version="' . $gos . '" sp="' . $gsp . '"/><o:app appid="' . $gapp . '" version="' . $gver . '" lang="en" brand="GGLS" client="" installsource="scheduler"><o:updatecheck' . ($dev ? ' tag="2.0-dev"' : '') . '/><o:ping active="1"/></o:app></o:gupdate>';
+$con='<?xml version="1.0" encoding="UTF-8"?><o:gupdate xmlns:o="http://www.google.com/update2/request" protocol="2.0" version="1.2.183.7" ismachine="0" machineid="{B08ED3F4-42C4-49be-A5E3-0000' . $iphex . '" userid="{F3627360-8932-49b0-9547-23D24D0D1739}" requestid="{5D7BF504-D356-4155-B30D-' . substr(uniqid(), -12) . '}"><o:os platform="win" version="' . $gos . '" sp="' . $gsp . '"/><o:app appid="' . $gapp . '" version="' . $gver . '" lang="en" brand="GGLS" client="" installsource="scheduler"><o:updatecheck' .  ($dev ? ' tag="2.0-dev"' : '') . ($beta ? ' tag="1.1-beta"' : '') . '/><o:ping active="1"/></o:app></o:gupdate>';
 
 /*
 $sock=fsockopen("tools.google.com", 80);
