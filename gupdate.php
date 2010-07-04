@@ -89,3 +89,8 @@ if ($st == "ok") {
 
 echo htmlentities($s);
 
+?>
+
+<p><a href="http://git.goeswhere.com/?p=gupdate.git">source</a></p>
+
+
