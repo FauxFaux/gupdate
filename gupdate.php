@@ -6,6 +6,7 @@ function hextuple($x) {
 $iphex = join('', array_map('hextuple', split('\\.', $_SERVER['REMOTE_ADDR'])));
 
 $apps['{8A69D345-D564-463C-AFF1-A69D9E530F96}'] = 'Chrome';
+$apps['{4ea16ac7-fd5a-47c3-875b-dbf4a2008c20}'] = 'Canary';
 $apps['{74AF07D8-FB8F-4d51-8AC7-927721D56EBB}'] = 'Earth';
 $gver = $_GET{'ver'};
 $gapp = $_GET{'app'};
